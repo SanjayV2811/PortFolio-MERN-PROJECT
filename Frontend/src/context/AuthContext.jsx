@@ -1,45 +1,26 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState( setUser|| null);
+  const [token, setToken] = useState(
+    () => localStorage.getItem("token") || null
+  );
 
-  // Sync localStorage whenever token changes
+  // Sync token → localStorage
   useEffect(() => {
     if (token) {
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
     } else {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
     }
   }, [token]);
-
-//   Optionally, fetch user profile if token exists on mount
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (token && !user) {
-        try {
-          const res = await fetch(`${import.meta.env.BASE_URL}/users/profile`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          const data = await res.json();
-          setUser(data.user);
-        } catch (err) {
-          console.error(err);
-          setToken(null);
-          setUser(null);
-        }
-      }
-    };
-    fetchUser();
-  }, [token, user]);
 
   const logout = () => {
     setToken(null);
     setUser(null);
+    localStorage.removeItem("token");
   };
 
   return (

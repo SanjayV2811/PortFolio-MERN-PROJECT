@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink , Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import {  } from 'react-router-dom'
 import { logo } from '../assets/images'
+import { Link as ScrollLink } from 'react-scroll';
+import { useLocation } from 'react-router-dom';
+import {AuthContext} from '../context/AuthContext'
 
 const Navbar = () => {
 
+  const location = useLocation();
   const  [ hovered, setHovered ] = useState(null)
+  const { logout } = useContext(AuthContext)
 
   window.onscroll = () => {
     if (window.scrollY > 50) {
@@ -32,12 +37,19 @@ const Navbar = () => {
   console.log(path);
   
   
-    const getLinkClass = (isActive) =>
+    const getScrollLinkClass = (isActive) =>
   `transition hover:text-[#6804ec] ${isActive ? 'text-[#6804ec]' : ''}`;
 
+    const isActive = (path) => {
+      return location.pathname === path;
+    }
    
     
-  
+   
+    
+  const handleLogout = () => {
+    logout()
+  }
   
   
 
@@ -47,13 +59,13 @@ const Navbar = () => {
   //        <h1><img src={logo} alt="logo" className='h-7 w-auto' /></h1>
   //      </div>
   //      <div className="tags flex gap-5">
-  //        <Link to='/' className={`hover:text-[#6804ec]  active:text-[#6804ec] ${path === '/' ? 'text-[#6804ec]' : ''}    transition`}  >Home</Link>
-  //        <Link to='/about' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/about' ? 'text-[#6804ec]' : ''
+  //        <ScrollLink to='/' className={`hover:text-[#6804ec]  active:text-[#6804ec] ${path === '/' ? 'text-[#6804ec]' : ''}    transition`}  >Home</ScrollLink>
+  //        <ScrollLink to='/about' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/about' ? 'text-[#6804ec]' : ''
 
-  //        }  transition`} >About</Link>
-  //        <Link to='/projects' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/projects' ? 'text-[#6804ec]' : ''}  transition`} >Projects</Link>
-  //        <Link to='/resume' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/resume' ? 'text-[#6804ec]' : ''}  transition`} >Resume</Link>
-  //        <Link to='/contact' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/contact' ? 'text-[#6804ec]' : ''}  transition`} >Contact</Link>
+  //        }  transition`} >About</ScrollLink>
+  //        <ScrollLink to='/projects' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/projects' ? 'text-[#6804ec]' : ''}  transition`} >Projects</ScrollLink>
+  //        <ScrollLink to='/resume' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/resume' ? 'text-[#6804ec]' : ''}  transition`} >Resume</ScrollLink>
+  //        <ScrollLink to='/contact' className={`hover:text-[#6804ec]  active:text-[#6804ec]  ${path === '/contact' ? 'text-[#6804ec]' : ''}  transition`} >Contact</ScrollLink>
   //        </div>
   //    </div>
   //  )
@@ -66,13 +78,12 @@ const Navbar = () => {
          <h1><img src={logo} alt="logo" className='h-7 w-auto' /></h1>
        </div>
        <div className="tags flex gap-5">
-        <Link to="/" smooth
-  spy
-  activeClass="text-[#6804ec]" className={`hover:text-[#6804ec]  active:text-[#6804ec]   transition`}   >Home</Link>
-        <Link to="/about" className={`hover:text-[#6804ec]  active:text-[#6804ec] ${path === '/about' ? 'text-[#6804ec]' : ''}    transition`}  >About</Link>
-        <Link to="/projects" className={`hover:text-[#6804ec]  active:text-[#6804ec] ${path === '/projects' ? 'text-[#6804ec]' : ''}    transition`}  >Projects</Link>
-        <Link to="/resume" className={`hover:text-[#6804ec]  active:text-[#6804ec] ${path === '/resume' ? 'text-[#6804ec]' : ''}    transition`}  >Resume</Link>
-        <Link to="/contact" className={`hover:text-[#6804ec]  active:text-[#6804ec] ${path === '/contact' ? 'text-[#6804ec]' : ''}    transition`}  >Contact</Link>
+        <ScrollLink to="home"  smooth spy offset={-100} duration={500} activeClass='text-text-secondary' className={`hover:text-text-secondary     transition  `}   >Home</ScrollLink>
+        <ScrollLink to="about" smooth spy offset={-100} duration={500} activeClass='text-text-secondary' className={`hover:text-text-secondary      transition`}  >About</ScrollLink>
+        <ScrollLink to="projects" smooth spy offset={-100} duration={500} activeClass='text-text-secondary' className={`hover:text-text-secondary      transition`}  >Projects</ScrollLink>
+        <ScrollLink to="resume" smooth spy offset={-100} duration={500} activeClass='text-text-secondary' className={`hover:text-text-secondary      transition`}  >Resume</ScrollLink>
+        <ScrollLink to="contact" smooth spy offset={-100} duration={500} activeClass='text-text-secondary' className={`hover:text-text-secondary      transition`}  >Contact</ScrollLink>
+        <button onClick={handleLogout} className="hover:text-text-secondary transition">Logout</button>
          </div>
      </div>
     </div>

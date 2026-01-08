@@ -15,7 +15,7 @@ const Projects = () => {
     },
   ];
   return (
-    <div className=" pt-10 text-white">
+    <div id="projects" className="  pt-10 text-white">
       {projects.map((project) => (
         <div
           key={project.id}

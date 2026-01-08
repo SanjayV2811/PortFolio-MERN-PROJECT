@@ -1,45 +1,40 @@
-import React, { useContext, useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import Home from "./pages/Home";
 import LoginRegister from "./pages/LoginRegister";
 import { AuthContext } from "./context/AuthContext";
-import './App.css'
 import axios from "axios";
+import './App.css'
 
-const App =  () => {
+const App = () => {
   const { token } = useContext(AuthContext);
- 
-  const [tokens , setToken] = useState(null);
- const [api , setapi] = useState(null);
-
-  const fetchApi = async () => {
-    const response = await axios.get("https://official-joke-api.appspot.com/random_joke")
-
-    console.log(response.data.punchline)
-    setapi(response.data)
-  }
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-     console.log(token)
-     setToken(token);
-     fetchApi()
-  }, [token]);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+  // useEffect(() => {
+  //   setLoading(false);
+  // }, []);
 
-  return (
-    <Routes>
-      {/* Protected Home route */}
-      <Route
-        path="/"
-        element={tokens ? <Home /> : <Navigate to="/login" />}
-      />
-
-      {/* Login/Register */}
-      <Route path="/login" element={<LoginRegister />} />
-
-      {/* Fallback route */}
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  );
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  else {
+    return (
+      <Routes>
+        <Route
+          path="/"
+          element={token ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route path="/login" element={<LoginRegister />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    );
+  }
+  
 };
 
 export default App;

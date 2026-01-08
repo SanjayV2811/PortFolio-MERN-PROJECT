@@ -11,12 +11,14 @@ export default function Auth() {
   const [password , setPassword] = useState("");
   const [confirmPassword , setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+
   
 
   const {user,setUser,token, setToken} = useContext(AuthContext)
   useEffect(() => {
     console.log(user)
     console.log(token)
+    console.log(import.meta.env.VITE_BASE_URL)
   }, [user,token,setUser])
   
 
@@ -35,7 +37,7 @@ export default function Auth() {
           return;
         }
 
-        const res = await axios.post(`${import.meta.env.BASE_URL}/users/register`, {
+        const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, {
           name,
           email,
           password,
@@ -46,7 +48,7 @@ export default function Auth() {
         setUser(res.data.user);
         navigate("/");
       } else {
-        const res = await axios.post(`${import.meta.env.BASE_URL}/users/login`, {
+        const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, {
           email,
           password,
         });
@@ -68,7 +70,7 @@ export default function Auth() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        `${import.meta.env.BASE_URL}/users/profile`,
+        `${import.meta.env.VITE_BASE_URL}/users/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
