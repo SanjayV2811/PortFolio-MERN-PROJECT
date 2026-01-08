@@ -1,0 +1,34 @@
+{
+  "javascript.suggest.autoImports": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.suggest.completeFunctionCalls": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact",
+    "jsx": "javascriptreact",
+    "tsx": "typescriptreact"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "files.associations": {
+    "*.js": "javascript",
+    "*.jsx": "javascriptreact",
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact"
+  },
+  "editor.quickSuggestions": {
+    "strings": true,
+    "comments": true,
+    "other": true
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "react-native-tools.projectRoot": "./Frontend",
+  "typescript.preferences.importModuleSpecifier": "relative"
+}
