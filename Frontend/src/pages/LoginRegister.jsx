@@ -9,7 +9,7 @@ export default function Auth() {
   const [name , setName] = useState("")
   const [email , setEmail] = useState("");
   const [password , setPassword] = useState("");
-  const [confirmPassword , setConfirmPassword] = useState("");
+  
   const [error, setError] = useState("");
 
   
@@ -32,10 +32,7 @@ export default function Auth() {
 
     try {
       if (!isLogin) {
-        if (password !== confirmPassword) {
-          setError("Passwords do not match");
-          return;
-        }
+        
 
         const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, {
           name,
@@ -92,11 +89,7 @@ export default function Auth() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg">
       <div className="w-full max-w-md bg-project-card rounded-2xl p-8 shadow-2xl border border-purple-900/40">
-        <form action="" onSubmit={(e)=>clearUser(e)}>
-          
-          <button type="submit">Clear User</button>
-        </form>
-        <button onClick={clearUser}>clear this</button>
+       
         {/* Heading */}
         <h2 className="text-3xl font-semibold text-text-primary text-center">
           {isLogin ? "Welcome Back" : "Create Account"}
@@ -159,23 +152,7 @@ export default function Auth() {
             />
           </div>
 
-          {/* Confirm Password (Register only) */}
-          {!isLogin && (
-            <div>
-              <label className="block text-sm text-text-tertiary mb-1">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-navbar text-text-primary
-                border border-purple-800/40 focus:outline-none focus:ring-2
-                focus:ring-text-secondary"
-              />
-            </div>
-          )}
-
+         
           {/* Button */}
           <button
             type="submit"
@@ -197,7 +174,6 @@ export default function Auth() {
             {isLogin ? "Sign up" : "Login"}
           </button>
 
-          <button className="text-text-secondary hover:underline ml-2" onClick={(e) => getProfile(e)}>Profile</button>
         </p>
       </div>
     </div>

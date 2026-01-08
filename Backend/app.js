@@ -20,7 +20,7 @@ app.use("/uploads",express.static("uploads"));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(cookieParser());
 app.use(cors({
-  origin: ["http://localhost:5173", "https://portfolio1128sanjay.netlify.app/"],
+  origin: ["http://localhost:5173", "https://mern-project-1128.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
