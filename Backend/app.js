@@ -20,7 +20,8 @@ app.use("/uploads",express.static("uploads"));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(cookieParser());
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://portfolio1128sanjay.netlify.app/"],
+  
   
   credentials: true
 }))
