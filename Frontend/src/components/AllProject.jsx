@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AllProject = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
+  /* -------------------- CATEGORIES -------------------- */
   const projectCategories = [
     "all",
     "frontend",
@@ -12,6 +14,7 @@ const AllProject = () => {
     "responsive",
   ];
 
+  /* -------------------- PROJECT DATA -------------------- */
   const projects = [
     {
       id: 1,
@@ -45,56 +48,130 @@ const AllProject = () => {
       icon: "🔐",
       category: "backend",
     },
+    {
+      id: 5,
+      title: "Landing Page",
+      description:
+        "High-conversion static landing page built using HTML, CSS, and Tailwind.",
+      icon: "🚀",
+      category: "static",
+    },
+    {
+      id: 6,
+      title: "Responsive Website",
+      description:
+        "Fully responsive website optimized for all screen sizes.",
+      icon: "📱",
+      category: "responsive",
+    },
   ];
 
-  // ✅ DERIVED DATA
+  /* -------------------- FILTERING (DERIVED STATE) -------------------- */
   const filteredProjects =
     selectedCategory === "all"
       ? projects
-      : projects.filter(
-          (project) => project.category === selectedCategory
-        );
+      : projects.filter((project) => project.category === selectedCategory);
+
+  /* -------------------- CARD GRADIENTS -------------------- */
+  const cardGradients = [
+    "linear-gradient(135deg, var(--color-project-card), var(--color-text-secondary), var(--color-bg))",
+    "linear-gradient(225deg, var(--color-bg), var(--color-text-secondary), var(--color-project-card))",
+    "linear-gradient(to right, var(--color-project-card), var(--color-text-secondary), var(--color-project-card))",
+    "linear-gradient(to bottom right, var(--color-bg), var(--color-text-secondary), var(--color-bg))",
+    "linear-gradient(160deg, var(--color-project-card), var(--color-text-secondary) 50%, var(--color-bg))",
+    "linear-gradient(300deg, var(--color-bg), var(--color-text-secondary) 40%, var(--color-project-card))",
+  ];
+
+  /* -------------------- ADD GRADIENTS TO PROJECTS -------------------- */
+  const displayProjects = filteredProjects.map((project, index) => ({
+    ...project,
+    gradient: cardGradients[index % cardGradients.length],
+  }));
 
   return (
-    <div className="max-w-[800px] mx-auto py-10">
-      <h1 className="text-4xl font-bold mb-6">All Projects</h1>
+    <div className="max-w-[1100px] mx-auto py-20 px-4">
+      {/* -------------------- TITLE -------------------- */}
+      <h1 className="text-4xl font-bold mb-12 text-text-primary">
+        All Projects
+      </h1>
 
-      {/* CATEGORY BUTTONS */}
-      <div className="flex gap-4 mb-10 flex-wrap">
+      {/* -------------------- CATEGORY BUTTONS -------------------- */}
+      <div className="flex gap-4 mb-14 flex-wrap">
         {projectCategories.map((category) => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 rounded-full border ${
-              selectedCategory === category
-                ? "bg-text-secondary text-black"
-                : "border-text-secondary"
-            }`}
+            className={`px-5 py-2 rounded-full border text-sm capitalize transition-all
+              ${
+                selectedCategory === category
+                  ? "bg-text-secondary text-black border-text-secondary"
+                  : "border-text-secondary text-text-primary hover:bg-text-secondary/10"
+              }
+            `}
           >
             {category}
           </button>
         ))}
       </div>
 
-      {/* PROJECT LIST */}
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-        {filteredProjects.map((project) => (
-          <div
-            key={project.id}
-            className=" p-4 rounded-xl bg-text-secondary/10 backdrop-blur"
-          >
-            <h2 className="text-xl font-semibold">
-              {project.icon} {project.title}
-            </h2>
-            <p className="text-sm mt-2">
-              {project.description}
-            </p>
-            <span className="text-xs text-text-secondary">
-              {project.category}
-            </span>
-          </div>
-        ))}
-      </div>
+      {/* -------------------- PROJECT GRID -------------------- */}
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <AnimatePresence>
+          {displayProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              layout
+              initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100, y: 40 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }} // animate only once when 30% visible
+              transition={{
+                duration: 0.6,
+                delay: index * 0.15, // stagger effect: each card delayed by 0.15s
+                ease: "easeOut",
+              }}
+              style={{ background: project.gradient }}
+              className="
+                relative
+                rounded-2xl
+                p-6
+                overflow-hidden
+                shadow-xl
+                hover:shadow-[0_0_40px_rgba(113,39,186,0.25)]
+                transition-shadow
+                duration-300
+              "
+            >
+              {/* TOP GRADIENT BORDER */}
+              <span
+                className="
+                  absolute
+                  top-0
+                  left-0
+                  w-full
+                  h-[2px]
+                  bg-linear-to-r
+                  from-transparent
+                  via-text-secondary
+                  to-transparent
+                  opacity-80
+                "
+              />
+
+              <h2 className="text-xl font-semibold mb-3 text-text-primary">
+                {project.icon} {project.title}
+              </h2>
+
+              <p className="text-sm text-text-tertiary mb-6 leading-relaxed">
+                {project.description}
+              </p>
+
+              <span className="text-xs uppercase tracking-wider opacity-70">
+                {project.category}
+              </span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 };

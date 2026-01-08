@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Auth() {
@@ -9,60 +10,62 @@ export default function Auth() {
   const [email , setEmail] = useState("");
   const [password , setPassword] = useState("");
   const [confirmPassword , setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-   const {user,setUser} = useContext(AuthContext)
-    console.log(user,setUser)
+  const {user,setUser,token, setToken} = useContext(AuthContext)
+  useEffect(() => {
+    console.log(user)
+    console.log(token)
+  }, [user,token,setUser])
   
 
-  const handleSubmit = async (e) =>{
+  
+
+    const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const formData = {
-      name,
-      email,
-      password
-      
-    };
-   try {
-    if(password === confirmPassword && !isLogin){
-      // Call API
-      const res = await axios.post(
-      "http://localhost:3000/users/register",
-      formData
-    );
-    const token = res.data.token;
-    console.log(token);
+    try {
+      if (!isLogin) {
+        if (password !== confirmPassword) {
+          setError("Passwords do not match");
+          return;
+        }
 
-    console.log(res.data); // ✅ REAL response
-    setUser(res.data.user);
-    console.log(user)
-    } else if( isLogin){
-      // Call API
-      const res = await axios.post(
-      "http://localhost:3000/users/login",
-      {email: formData.email, password: formData.password},
-       { withCredentials: true }
-    );
+        const res = await axios.post("http://localhost:3000/users/register", {
+          name,
+          email,
+          password,
+        });
+        console.log(res.data)
 
-    const token = res.data.token;
-    localStorage.setItem("token", token);
-    
-    console.log(token);
+        setToken(res.data.token);
+        setUser(res.data.user);
+        navigate("/");
+      } else {
+        const res = await axios.post("http://localhost:3000/users/login", {
+          email,
+          password,
+        });
+        console.log(res.data)
 
-    console.log(res.data); // ✅ REAL response
-    setUser(res.data.user);
-    console.log(user)
+        setToken(res.data.token);
+        setUser(res.data.user);
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      setError(err.response?.data?.message || "Something went wrong");
     }
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-  }
   };
 
 
   const getProfile = async (e) =>{
     e.preventDefault();
     try {
-      const token = localStorage.getItem("Accesstoken");
+      const token = localStorage.getItem("token");
       const res = await axios.get(
         "http://localhost:3000/users/profile",
         {
@@ -77,12 +80,20 @@ export default function Auth() {
     }
   };
 
+  const clearUser = () => {
+    setUser(null);
+  };
+
 
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg">
       <div className="w-full max-w-md bg-project-card rounded-2xl p-8 shadow-2xl border border-purple-900/40">
-
+        <form action="" onSubmit={(e)=>clearUser(e)}>
+          
+          <button type="submit">Clear User</button>
+        </form>
+        <button onClick={clearUser}>clear this</button>
         {/* Heading */}
         <h2 className="text-3xl font-semibold text-text-primary text-center">
           {isLogin ? "Welcome Back" : "Create Account"}

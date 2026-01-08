@@ -2,14 +2,21 @@ import React from "react";
 import { motion } from "framer-motion";
 import { gradient } from "../assets/images";
 
-const Workcard = ({ project }) => {
+const Workcard = ({ project, index }) => {
+  // Determine slide direction: left for even index, right for odd
+  const xInitial = index % 2 === 0 ? -100 : 100;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="relative"
+      initial={{ opacity: 0, x: xInitial, y: 40 }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.2, // staggered delay
+        ease: "easeOut",
+      }}
+      className="relative mb-20"
     >
       {/* FIRST CARD */}
       <motion.div
@@ -24,9 +31,7 @@ const Workcard = ({ project }) => {
               <h2 className="text-text-secondary text-sm">
                 {project.domain}
               </h2>
-              <p className="text-text-tertiary text-2xl">
-                {project.title}
-              </p>
+              <p className="text-text-tertiary text-2xl">{project.title}</p>
             </div>
 
             <p className="w-[520px] h-[125px] text-lg rounded-2xl p-10 leading-tight flex items-center bg-text-secondary/10 backdrop-blur-xl">

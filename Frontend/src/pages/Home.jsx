@@ -2,25 +2,30 @@ import React from "react";
 import About from "./About";
 import Navbar from "../components/Navbar";
 import Projects from "./Projects";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Home = ({ token, setToken }) => {
-  console.log(token);
-  const handlelogout = () => {
-    // TODO: Implement logout logic
-    localStorage.removeItem("token");
-    setToken(null);
-    console.log("Logout clicked");
-  };
+   
+  const {logout} = useContext(AuthContext);
+
+  
+
+const handleLogout = (e) => {
+  e.preventDefault();
+  console.log("Before logout:", localStorage.getItem("token"));
+  logout();
+  console.log("After logout:", localStorage.getItem("token")); // Should be null
+};
+
 
   return (
     <div className=" text-text-primary bg-bg w-full h-full overflow-x-hidden ">
       <Navbar />
-      <a href="/" onClick={handlelogout}>
-        logout
-      </a>
-      <a href="#about" onClick={handlelogout}>
-        About
-      </a>
+      <form action="" onSubmit={(e)=>handleLogout(e)}>
+        <button type="submit">Logout</button>
+      </form>
+      
       <About />
       <Projects />
     </div>

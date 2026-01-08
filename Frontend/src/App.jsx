@@ -1,24 +1,45 @@
-import React, { useContext } from 'react'
-import Navbar from './components/Navbar'
+import React, { useContext, useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/Home";
+import LoginRegister from "./pages/LoginRegister";
+import { AuthContext } from "./context/AuthContext";
 import './App.css'
-import Home from './pages/Home'
-import { Routes,Route } from 'react-router-dom'
-import About from './pages/About'
-import LoginRegister from './pages/LoginRegister'
-import { AuthContext } from './context/AuthContext'
+import axios from "axios";
 
-const App = () => {
+const App =  () => {
+  const { token } = useContext(AuthContext);
+ 
+  const [tokens , setToken] = useState(null);
+ const [api , setapi] = useState(null);
 
-  // const {user} = useContext(AuthContext)
-  const [token, setToken] = React.useState(localStorage.getItem("token"))
+  const fetchApi = async () => {
+    const response = await axios.get("https://official-joke-api.appspot.com/random_joke")
 
-  
+    console.log(response.data.punchline)
+    setapi(response.data)
+  }
+
+  useEffect(() => {
+     console.log(token)
+     setToken(token);
+     fetchApi()
+  }, [token]);
+
   return (
     <Routes>
-      <Route path="/" element={token ? <Home token={token} setToken={setToken} /> : <LoginRegister />} />
-      <Route path="/login" element={<LoginRegister />} />
-    </Routes>
-  )
-}
+      {/* Protected Home route */}
+      <Route
+        path="/"
+        element={tokens ? <Home /> : <Navigate to="/login" />}
+      />
 
-export default App
+      {/* Login/Register */}
+      <Route path="/login" element={<LoginRegister />} />
+
+      {/* Fallback route */}
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+};
+
+export default App;

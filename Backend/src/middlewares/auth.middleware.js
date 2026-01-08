@@ -16,7 +16,7 @@ const isloggedin = async (req,res,next) =>{
             return res.status(401).json({message:"Unauthorized"})
         }
         const decode = jwt.verify(token,"portfolio_secret");
-        console.log("decode",decode);
+        
         const user = await User.findById(decode.id);
         if(!user){
             return res.status(401).json({message:"user not found"})
