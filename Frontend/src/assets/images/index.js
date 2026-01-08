@@ -1,4 +1,4 @@
-import logo from "./logo.png";
+import logo from "./Logo.png";
 import about from "./about.png";
 import ellipse from "./ellipse.png";
 import defaultImage  from "./default.webp";

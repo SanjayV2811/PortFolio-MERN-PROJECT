@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
     const fetchUser = async () => {
       if (token && !user) {
         try {
-          const res = await fetch("http://localhost:3000/users/profile", {
+          const res = await fetch(`${import.meta.env.BASE_URL}/users/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
