@@ -1,5 +1,6 @@
 import React from 'react'
 import Workcard from '../components/Workcard'
+import AllProject from '../components/AllProject'
 
 const Projects = () => {
   const projects = [
@@ -16,15 +17,21 @@ const Projects = () => {
   return (
     <div className=" pt-10 text-white">
       {projects.map((project) => (
-        (
-          <div key={project.id} className=" w-full h-full pt-10 flex justify-center items-center  ">
+        ( 
+          <div key={project.id} className="  w-full h-full pt-10 flex justify-center items-center  ">
             <div className=''>
               <Workcard project={project} />
             </div>
-
+           
           </div>
         )
       ))}
+      <div>
+         <div className='w-full '>
+              <AllProject/>
+            </div>
+
+      </div>
     </div>
   )
 }

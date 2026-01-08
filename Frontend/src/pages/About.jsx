@@ -1,28 +1,41 @@
 import React from "react";
+import { motion } from "framer-motion";
 import Introduction from "../components/Introduction";
 
 const About = () => {
   return (
-    <div>
-      <div className=" min-h-screen">
-        <Introduction />
-        <div className="py-10 flex flex-col items-center gap-10">
-          <div className=" flex flex-col relative right-43">
-            <h2 className="text-4xl">I'm a Web Developer. | </h2>
-            <p className="text-xl">
-              Currently , i am 3rd year Computer Engineering Student
-            </p>
-          </div>
+    <div id="about" className="min-h-screen">
+      <Introduction />
 
-          <div className="  w-[55%] text-xl">
-            I’m a Full-Stack MERN Web Developer with hands-on frontend
-            internship experience, passionate about building fast, responsive,
-            and user-focused web applications. I enjoy turning ideas into clean,
-            scalable code and crafting digital experiences that look great and
-            perform even better.
-          </div>
+      <motion.div
+        className="py-10 flex flex-col items-center gap-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <div className="relative text-center">
+          <h2 className="text-4xl">
+            I'm a Web Developer.
+          </h2>
+          <p className="text-xl">
+            Currently, I am a 3rd year Computer Engineering Student
+          </p>
         </div>
-      </div>
+
+        <motion.div
+          className="w-[55%] text-xl text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          I’m a Full-Stack MERN Web Developer with hands-on
+          frontend internship experience, passionate about
+          building fast, responsive, and user-focused web
+          applications.
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

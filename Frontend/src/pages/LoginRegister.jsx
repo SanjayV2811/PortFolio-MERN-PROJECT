@@ -1,7 +1,83 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
+
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
+  const [name , setName] = useState("")
+  const [email , setEmail] = useState("");
+  const [password , setPassword] = useState("");
+  const [confirmPassword , setConfirmPassword] = useState("");
+
+   const {user,setUser} = useContext(AuthContext)
+    console.log(user,setUser)
+  
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+
+    const formData = {
+      name,
+      email,
+      password
+      
+    };
+   try {
+    if(password === confirmPassword && !isLogin){
+      // Call API
+      const res = await axios.post(
+      "http://localhost:3000/users/register",
+      formData
+    );
+    const token = res.data.token;
+    console.log(token);
+
+    console.log(res.data); // ✅ REAL response
+    setUser(res.data.user);
+    console.log(user)
+    } else if( isLogin){
+      // Call API
+      const res = await axios.post(
+      "http://localhost:3000/users/login",
+      {email: formData.email, password: formData.password},
+       { withCredentials: true }
+    );
+
+    const token = res.data.token;
+    localStorage.setItem("token", token);
+    
+    console.log(token);
+
+    console.log(res.data); // ✅ REAL response
+    setUser(res.data.user);
+    console.log(user)
+    }
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+  }
+  };
+
+
+  const getProfile = async (e) =>{
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("Accesstoken");
+      const res = await axios.get(
+        "http://localhost:3000/users/profile",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res.data);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+    }
+  };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg">
@@ -18,7 +94,9 @@ export default function Auth() {
         </p>
 
         {/* Form */}
-        <form className="mt-8 space-y-5">
+        <form className="mt-8 space-y-5" onSubmit={(e)=>{
+          handleSubmit(e);
+        }}>
 
           {/* Name (Register only) */}
           {!isLogin && (
@@ -29,6 +107,7 @@ export default function Auth() {
               <input
                 type="text"
                 placeholder="Sanjay Baviskar"
+                onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg bg-navbar text-text-primary
                 border border-purple-800/40 focus:outline-none focus:ring-2
                 focus:ring-text-secondary"
@@ -44,6 +123,7 @@ export default function Auth() {
             <input
               type="email"
               placeholder="you@example.com"
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-lg bg-navbar text-text-primary
               border border-purple-800/40 focus:outline-none focus:ring-2
               focus:ring-text-secondary"
@@ -58,6 +138,7 @@ export default function Auth() {
             <input
               type="password"
               placeholder="••••••••"
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 rounded-lg bg-navbar text-text-primary
               border border-purple-800/40 focus:outline-none focus:ring-2
               focus:ring-text-secondary"
@@ -73,6 +154,7 @@ export default function Auth() {
               <input
                 type="password"
                 placeholder="••••••••"
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg bg-navbar text-text-primary
                 border border-purple-800/40 focus:outline-none focus:ring-2
                 focus:ring-text-secondary"
@@ -100,6 +182,8 @@ export default function Auth() {
           >
             {isLogin ? "Sign up" : "Login"}
           </button>
+
+          <button className="text-text-secondary hover:underline ml-2" onClick={(e) => getProfile(e)}>Profile</button>
         </p>
       </div>
     </div>

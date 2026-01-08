@@ -7,6 +7,7 @@ const path = require("path");
 const connectDB = require("./src/config/db");
 const userRoutes = require("./src/routes/user.routes");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 
 connectDB();
@@ -18,6 +19,10 @@ app.use(express.static("public"));
 app.use("/uploads",express.static("uploads"));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(cookieParser());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}))
 
 app.use("/users",userRoutes)
 
