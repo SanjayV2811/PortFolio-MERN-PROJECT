@@ -11,6 +11,8 @@ const Navbar = () => {
   const  [ hovered, setHovered ] = useState(null)
   const { logout } = useContext(AuthContext)
 
+  
+
   window.onscroll = () => {
     if (window.scrollY > 50) {
       document.querySelector('.navbar').classList.remove('bg-transparent')
@@ -50,6 +52,30 @@ const Navbar = () => {
   const handleLogout = () => {
     logout()
   }
+
+   const getProfile = async (e) =>{
+    e.preventDefault();
+    try {
+      
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/users/profile`,
+        {
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // }
+          // ,
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+    }
+  };
+
+  const clearUser = () => {
+    setUser(null);
+  };
   
   
 
@@ -84,6 +110,7 @@ const Navbar = () => {
         <ScrollLink to="resume" smooth spy offset={-100} duration={500} activeClass='text-text-secondary' className={`hover:text-text-secondary      transition`}  >Resume</ScrollLink>
         <ScrollLink to="contact" smooth spy offset={-100} duration={500} activeClass='text-text-secondary' className={`hover:text-text-secondary      transition`}  >Contact</ScrollLink>
         <button onClick={handleLogout} className="hover:text-text-secondary transition">Logout</button>
+        <button onClick={getProfile} className="hover:text-text-secondary transition">Get Profile</button>
          </div>
      </div>
     </div>

@@ -173,9 +173,7 @@ export default function Auth() {
           >
             {isLogin ? "Login" : "Register"}
           </button>
-          <button onClick={getProfile} className="w-full py-3 rounded-lg bg-gradient-to-r
-            from-text-secondary to-primary text-white font-medium
-            hover:opacity-90 transition">Get Profile</button>
+          
         </form>
 
         {/* Toggle */}
