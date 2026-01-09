@@ -33,11 +33,11 @@ module.exports.registerUser = async (req, res) => {
       return res.status(400).json({ message: "User not created" });
     }
     const token = generateToken(newUser);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    // });
 
     res
       .status(200)
@@ -58,11 +58,11 @@ module.exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
     const token = generateToken(user);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    // });
 
     res
       .status(200)
@@ -83,11 +83,11 @@ module.exports.profile = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
   try {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "Lax",
-    });
+    // res.clearCookie("token", {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "Lax",
+    // });
     res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
     console.log(error);

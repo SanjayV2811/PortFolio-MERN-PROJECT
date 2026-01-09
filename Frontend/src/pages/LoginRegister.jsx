@@ -39,11 +39,13 @@ export default function Auth() {
           name,
           email,
           password,
-        },{
-          withCredentials: true,
-        });
+        }
+        // ,{
+        //   withCredentials: true,
+        // }
+        );
         console.log(res.data)
-
+        localStorage.setItem("token", res.data.token);
         setToken(res.data.token);
         setUser(res.data.user);
         navigate("/");
@@ -51,11 +53,13 @@ export default function Auth() {
         const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, {
           email,
           password,
-        },{
-          withCredentials: true,
-        });
+        }
+        // ,{
+        //   withCredentials: true,
+        // }
+      );
         console.log(res.data)
-
+        localStorage.setItem("token", res.data.token);
         setToken(res.data.token);
         setUser(res.data.user);
         navigate("/");
@@ -76,8 +80,9 @@ export default function Auth() {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
+          }
+          // ,
+          // withCredentials: true,
         }
       );
       console.log(res.data);

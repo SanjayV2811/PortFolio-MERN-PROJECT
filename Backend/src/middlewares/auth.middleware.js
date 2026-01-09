@@ -11,7 +11,8 @@ const isloggedin = async (req,res,next) =>{
     try {
         
 
-        const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
+        // const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
+        const token = req.header("Authorization")?.split(" ")[1];
         if(!token){
             return res.status(401).json({message:"Unauthorized"})
         }
