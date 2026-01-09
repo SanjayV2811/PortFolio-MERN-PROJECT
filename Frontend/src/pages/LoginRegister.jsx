@@ -3,7 +3,6 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.withCredentials = true;
 
 
 export default function Auth() {
@@ -40,6 +39,8 @@ export default function Auth() {
           name,
           email,
           password,
+        },{
+          withCredentials: true,
         });
         console.log(res.data)
 
@@ -50,6 +51,8 @@ export default function Auth() {
         const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, {
           email,
           password,
+        },{
+          withCredentials: true,
         });
         console.log(res.data)
 
@@ -67,13 +70,14 @@ export default function Auth() {
   const getProfile = async (e) =>{
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
+      
       const res = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/users/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         }
       );
       console.log(res.data);
