@@ -14,7 +14,7 @@ const cors = require("cors");
 connectDB();
 
 app.use(cors({
-  origin: ["http://localhost:5173","https://mern-project-seven-lemon.vercel.app"],
+  origin: ["http://localhost:5173","https://mern-project-1128.netlify.app"],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
