@@ -21,6 +21,8 @@ app.use(cors({
 
 }));
 
+console.log(process.env.MONGO_URI);
+
 // IMPORTANT: handle preflight
 app.options(/.*/, cors());
 
