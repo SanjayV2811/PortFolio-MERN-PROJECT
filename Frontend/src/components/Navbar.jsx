@@ -4,6 +4,7 @@ import { logo } from '../assets/images'
 import { Link as ScrollLink } from 'react-scroll';
 import { useLocation } from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext'
+import axios from 'axios'
 
 const Navbar = () => {
 
