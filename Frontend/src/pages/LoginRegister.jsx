@@ -40,9 +40,9 @@ export default function Auth() {
           email,
           password,
         }
-        // ,{
-        //   withCredentials: true,
-        // }
+        ,{
+          withCredentials: true,
+        }
         );
         console.log(res.data)
         localStorage.setItem("token", res.data.token);
@@ -54,9 +54,9 @@ export default function Auth() {
           email,
           password,
         }
-        // ,{
-        //   withCredentials: true,
-        // }
+        ,{
+          withCredentials: true,
+        }
       );
         console.log(res.data)
         localStorage.setItem("token", res.data.token);
@@ -78,11 +78,11 @@ export default function Auth() {
       const res = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/users/profile`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // }
           // ,
-          // withCredentials: true,
+          withCredentials: true,
         }
       );
       console.log(res.data);
@@ -173,6 +173,9 @@ export default function Auth() {
           >
             {isLogin ? "Login" : "Register"}
           </button>
+          <button onClick={getProfile} className="w-full py-3 rounded-lg bg-gradient-to-r
+            from-text-secondary to-primary text-white font-medium
+            hover:opacity-90 transition">Get Profile</button>
         </form>
 
         {/* Toggle */}
