@@ -27,7 +27,7 @@ const Projects = () => {
         </div>
       ))}
       <div>
-        <div className="w-full ">
+        <div className=" -mt-49 w-full ">
           <AllProject />
         </div>
       </div>

@@ -14,7 +14,7 @@ const cors = require("cors");
 connectDB();
 
 app.use(cors({
-  origin: ["http://localhost:5173","https://mern-project-1128.netlify.app"],
+  origin: ["http://localhost:5173","https://mern-project-1128.netlify.app","http://localhost:5174"],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
@@ -35,8 +35,10 @@ app.use(cookieParser());
 
 
 const userRoutes = require("./src/routes/user.routes");
+const ownerRoutes = require("./src/routes/owner.routes");
 
 app.use("/users",userRoutes)
+app.use("/owners",ownerRoutes)
 app.get("/",(req,res) => {
   res.send("Hello World");
 });
