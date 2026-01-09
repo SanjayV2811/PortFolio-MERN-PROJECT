@@ -1,4 +1,4 @@
-const Owner = require("../models/owner.model");
+const Owner = require("../models/admin.model");
 
 module.exports = {
     createOwner: async (ownerData) => {

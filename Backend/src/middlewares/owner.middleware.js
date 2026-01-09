@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Owner = require("../models/owner.model");
+const Owner = require("../models/admin.model");
 
 const isOwnerLoggedIn = async (req, res, next) => {
     try {
