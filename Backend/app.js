@@ -14,7 +14,7 @@ const cors = require("cors");
 connectDB();
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173","https://mern-project-seven-lemon.vercel.app"],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
@@ -22,7 +22,7 @@ app.use(cors({
 }));
 
 // IMPORTANT: handle preflight
-// app.options("/.*/", cors());
+app.options(/.*/, cors());
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
