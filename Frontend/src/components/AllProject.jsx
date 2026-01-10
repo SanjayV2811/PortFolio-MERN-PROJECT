@@ -18,7 +18,7 @@ const AllProject = () => {
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:3000/projects" ,{
+    const res = axios.get(`${import.meta.env.VITE_API_URL}/projects` ,{
       withCredentials: true
     })
       .then(res => {
