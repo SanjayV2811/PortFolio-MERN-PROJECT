@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, {  useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Dashboard from "./components/Dashboard";
+import Projects from "./components/Projects";
+import AddProject from "./components/Addprojects";
+import Sidebar from "./components/sidebar";
+import Navbar from "./components/navbar";
+import "./App.css";
+import OwnerLogin from "./pages/ownerLogin";
+import { useLocation } from "react-router-dom";
+import OwnerContext from "./context/OwnerContext";
+import FavoriteProjects from "./components/FavouriteProject";
+import UpdateProject from "./components/UpdateProject";
+
+
+const App = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const location = useLocation();
+// const {project} = useContext(OwnerContext);
+
+  useEffect(() => {
+    if (location.pathname === "/login") {
+      setIsLogin(false);
+    } else {
+      setIsLogin(true);
+    }
+  }, [location]);
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className={` ${isLogin ? "ml-64" : ""} h-screen bg-[#52969A54] `}>
+      {isLogin && (
+        <div className="">
+          <div>
+            <Sidebar />
+          </div>
+          <div>
+            <Navbar />
+          </div>
+        </div>
+        )}
+      <Routes>
+        <Route path="/" element={isLogin ? <Dashboard /> : <OwnerLogin />} />
+        <Route
+          path="/projects"
+          element={isLogin ? <Projects /> : <OwnerLogin />}
+        />
+        <Route
+          path="/add-project"
+          element={isLogin ? <AddProject /> : <OwnerLogin />}
+        />
+        <Route path="/login" element={<OwnerLogin />} />
+        <Route
+          path="/favorite-projects"
+          element={isLogin ? <FavoriteProjects /> : <OwnerLogin />}
+        />
+        <Route path="/projects/edit/:id" element={isLogin ? <UpdateProject /> : <OwnerLogin />} />
+        </Routes>
+      
+    </div>
+  );
+};
 
-export default App
+export default App;

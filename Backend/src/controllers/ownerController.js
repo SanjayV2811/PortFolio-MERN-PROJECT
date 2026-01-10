@@ -71,7 +71,10 @@ module.exports = {
     },
     getOwner: async (req, res) => {
         try {
-            const owner = await getOwner(req.ownerId);
+            const owner = req.owner;
+            if (!owner) {
+                return res.status(400).json({ message: "Owner not found" });
+            }
             res.status(200).json({ message: "Owner fetched successfully", owner });
         } catch (error) {
             res.status(500).json({ message: "Internal server error" });
