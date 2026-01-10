@@ -6,7 +6,9 @@ const FavoriteProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/projects/favorite")
+    axios.get(`${import.meta.env.VITE_API_URL}/projects/favorite`, {
+      withCredentials: true
+    })
       .then(res => setProjects(res.data.data));
   }, []);
 

@@ -8,11 +8,11 @@ const ProjectCard = ({ project }) => {
 
   const toggleFavorite = async () => {
     if(project.isFavorite){
-      await axios.post(`http://localhost:3000/projects/unfavorite/${project._id}`, {}, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/projects/unfavorite/${project._id}`, {}, {
         withCredentials: true
       });
     }else{
-      await axios.post(`http://localhost:3000/projects/favorite/${project._id}`, {}, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/projects/favorite/${project._id}`, {}, {
         withCredentials: true
       });
     }
@@ -23,7 +23,7 @@ const ProjectCard = ({ project }) => {
     <div className="bg-white p-4 rounded-xl shadow">
 
       <img
-        src={`http://localhost:3000/projects/image/${project._id}`}
+        src={`${import.meta.env.VITE_API_URL}/projects/image/${project._id}`}
         className="w-full h-40 object-cover rounded"
       />
 
@@ -38,7 +38,7 @@ const ProjectCard = ({ project }) => {
         <button className="text-blue-600" onClick={() => navigate(`/projects/edit/${project._id}`)}>Edit</button>
         <button className="text-red-500" onClick={() => {
           if(window.confirm("Are you sure you want to delete this project?")){
-            axios.get(`http://localhost:3000/projects/delete/${project._id}`, {
+            axios.get(`${import.meta.env.VITE_API_URL}/projects/delete/${project._id}`, {
               withCredentials: true
             });
             window.location.reload();

@@ -6,7 +6,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/projects" ,{
+    axios.get(`${import.meta.env.VITE_API_URL}/projects` ,{
       withCredentials: true
     })
       .then(res => {

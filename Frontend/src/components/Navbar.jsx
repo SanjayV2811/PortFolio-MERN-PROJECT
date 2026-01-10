@@ -40,12 +40,12 @@ const Navbar = () => {
   console.log(path);
   
   
-    const getScrollLinkClass = (isActive) =>
-  `transition hover:text-[#6804ec] ${isActive ? 'text-[#6804ec]' : ''}`;
+  //   const getScrollLinkClass = (isActive) =>
+  // `transition hover:text-[#6804ec] ${isActive ? 'text-[#6804ec]' : ''}`;
 
-    const isActive = (path) => {
-      return location.pathname === path;
-    }
+  //   const isActive = (path) => {
+  //     return location.pathname === path;
+  //   }
    
     
    
@@ -74,9 +74,9 @@ const Navbar = () => {
     }
   };
 
-  const clearUser = () => {
-    setUser(null);
-  };
+  // const clearUser = () => {
+  //   setUser(null);
+  // };
   
   
 

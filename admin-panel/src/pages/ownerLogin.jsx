@@ -24,7 +24,7 @@ export default function OwnerLogin() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:3000/owners/login",
+        `${import.meta.env.VITE_API_URL}/owners/login`,
         owner,
         { withCredentials: true }
       );

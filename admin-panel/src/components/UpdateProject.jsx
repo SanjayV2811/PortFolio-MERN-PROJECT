@@ -23,7 +23,7 @@ export default function UpdateProject() {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/projects/${id}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
           withCredentials: true
         });
         const p = res.data.data;
@@ -37,7 +37,7 @@ export default function UpdateProject() {
           category: p.category || ""
         });
 
-        setPreview(`http://localhost:3000/projects/image/${id}`);
+        setPreview(`${import.meta.env.VITE_API_URL}/projects/image/${id}`);
         setLoading(false);
       } catch (err) {
         alert("Failed to load project");
@@ -65,7 +65,7 @@ export default function UpdateProject() {
     if (image) data.append("image", image);
 
     try {
-      await axios.post(`http://localhost:3000/projects/update/${id}`, data, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/projects/update/${id}`, data, {
         withCredentials: true
       });
       alert("Project updated successfully");

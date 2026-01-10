@@ -27,7 +27,7 @@ const AddProjects = () => {
     Object.keys(form).forEach(key => data.append(key, form[key]));
     if (image) data.append("image", image);
 
-    await axios.post("http://localhost:3000/projects/create", data, {
+    await axios.post(`${import.meta.env.VITE_API_URL}/projects/create`, data, {
       withCredentials: true
     });
 

@@ -33,7 +33,7 @@ router.post("/update/:id", isOwnerLoggedIn, upload.single("image"), updateProjec
 router.get("/delete/:id", isOwnerLoggedIn, deleteProjectController);
 
 // normal fetch
-router.get("/", isOwnerLoggedIn, getProjectsController);
-router.get("/:id", isOwnerLoggedIn, getProjectByIdController);
+router.get("/", getProjectsController);
+router.get("/:id", getProjectByIdController);
 
 module.exports = router;
