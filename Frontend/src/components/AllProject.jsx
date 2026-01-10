@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 
 const AllProject = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [projects,setProjects] = useState([])
+  
 
   /* -------------------- CATEGORIES -------------------- */
   const projectCategories = [
@@ -14,57 +17,70 @@ const AllProject = () => {
     "responsive",
   ];
 
+  useEffect(() => {
+    axios.get("http://localhost:3000/projects" ,{
+      withCredentials: true
+    })
+      .then(res => {
+        console.log(res.data);
+        setProjects(res.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
   /* -------------------- PROJECT DATA -------------------- */
-  const projects = [
-    {
-      id: 1,
-      title: "Personal Portfolio",
-      description:
-        "A modern personal portfolio website with smooth animations and responsive design.",
-      icon: "💼",
-      category: "frontend",
-    },
-    {
-      id: 2,
-      title: "E-Commerce Website",
-      description:
-        "Full-featured e-commerce platform with authentication, cart, and payment integration.",
-      icon: "🛒",
-      category: "mern",
-    },
-    {
-      id: 3,
-      title: "Admin Dashboard",
-      description:
-        "Role-based admin dashboard with analytics, charts, and real-time data updates.",
-      icon: "📊",
-      category: "frontend",
-    },
-    {
-      id: 4,
-      title: "REST API Server",
-      description:
-        "Secure REST API built with Node.js, Express, and JWT authentication.",
-      icon: "🔐",
-      category: "backend",
-    },
-    {
-      id: 5,
-      title: "Landing Page",
-      description:
-        "High-conversion static landing page built using HTML, CSS, and Tailwind.",
-      icon: "🚀",
-      category: "static",
-    },
-    {
-      id: 6,
-      title: "Responsive Website",
-      description:
-        "Fully responsive website optimized for all screen sizes.",
-      icon: "📱",
-      category: "responsive",
-    },
-  ];
+  //   const projectData = [
+  //   {
+  //     id: 1,
+  //     title: "Personal Portfolio",
+  //     description:
+  //       "A modern personal portfolio website with smooth animations and responsive design.",
+  //     icon: "💼",
+  //     category: "frontend",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "E-Commerce Website",
+  //     description:
+  //       "Full-featured e-commerce platform with authentication, cart, and payment integration.",
+  //     icon: "🛒",
+  //     category: "mern",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Admin Dashboard",
+  //     description:
+  //       "Role-based admin dashboard with analytics, charts, and real-time data updates.",
+  //     icon: "📊",
+  //     category: "frontend",
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "REST API Server",
+  //     description:
+  //       "Secure REST API built with Node.js, Express, and JWT authentication.",
+  //     icon: "🔐",
+  //     category: "backend",
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Landing Page",
+  //     description:
+  //       "High-conversion static landing page built using HTML, CSS, and Tailwind.",
+  //     icon: "🚀",
+  //     category: "static",
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Responsive Website",
+  //     description:
+  //       "Fully responsive website optimized for all screen sizes.",
+  //     icon: "📱",
+  //     category: "responsive",
+  //   },
+  // ];
 
   /* -------------------- FILTERING (DERIVED STATE) -------------------- */
   const filteredProjects =
@@ -119,7 +135,7 @@ const AllProject = () => {
         <AnimatePresence>
           {displayProjects.map((project, index) => (
             <motion.div
-              key={project.id}
+              key={project._id}
               layout
               initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100, y: 40 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -132,13 +148,17 @@ const AllProject = () => {
               style={{ background: project.gradient }}
               className="
                 relative
+                w-full
+                h-[150px]
                 rounded-2xl
                 p-6
                 overflow-hidden
                 shadow-xl
-                hover:shadow-[0_0_40px_rgba(113,39,186,0.25)]
+                hover:shadow-white/15
                 transition-shadow
                 duration-300
+                cursor-pointer
+                hover:scale-101
               "
             >
               {/* TOP GRADIENT BORDER */}
