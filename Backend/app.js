@@ -14,12 +14,16 @@ const cors = require("cors");
 connectDB();
 
 app.use(cors({
-  origin: ["http://localhost:5173","https://mern-project-1128.netlify.app","http://localhost:5174"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://mern-project-1128.netlify.app"
+  ],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
-
 }));
+
 
 console.log(process.env.MONGO_URI);
 

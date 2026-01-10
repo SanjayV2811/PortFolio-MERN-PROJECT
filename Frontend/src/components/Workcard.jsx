@@ -29,20 +29,20 @@ const Workcard = ({ project, index }) => {
           <div className="absolute top-0 left-0 flex flex-col gap-8 z-30">
             <div>
               <h2 className="text-text-secondary text-sm">
-                {project.domain}
+                {project[0]?.domain}
               </h2>
-              <p className="text-text-tertiary text-2xl">{project.title}</p>
+              <p className="text-text-tertiary text-2xl">{project[0]?.title}</p>
             </div>
 
             <p className="w-[520px] h-[125px] text-lg rounded-2xl p-10 leading-tight flex items-center bg-text-secondary/10 backdrop-blur-xl">
-              {project.description}
+              {project[0]?.description}
             </p>
           </div>
 
           {/* IMAGE CARD */}
           <div className="absolute rounded-xl top-0 left-110 bg-project-card w-[420px] h-[250px] z-10 overflow-hidden">
             <motion.a
-              href={project.link}
+              href={project[0]  ? project[0].link : ""}
               target="_blank"
               rel="noopener noreferrer"
               className="block absolute left-15.5 top-12.5 w-6/7 h-4/5 cursor-pointer rounded-tl-3xl overflow-hidden"
@@ -50,7 +50,7 @@ const Workcard = ({ project, index }) => {
               transition={{ duration: 0.4 }}
             >
               <motion.img
-                src={project.projectImage}
+                src={project[0]?.projectImage ? `data:image/jpeg;base64,${project[0].projectImage.toString("base64")}` : ""}
                 alt="project"
                 className="w-full h-full object-cover"
                 whileHover={{ scale: 1.1 }}
@@ -81,29 +81,29 @@ const Workcard = ({ project, index }) => {
           <div className="absolute top-0 left-90 flex flex-col gap-8 z-30">
             <div>
               <h2 className="relative -right-120 text-text-secondary text-sm">
-                {project.domain}
+                {project[1]?.domain}
               </h2>
               <p className="relative -right-90 text-text-tertiary text-2xl">
-                {project.title}
+                {project[1]?.title}
               </p>
             </div>
 
             <p className="w-[530px] h-[125px] text-lg rounded-2xl p-10 leading-tight flex items-center bg-text-secondary/10 backdrop-blur-xl">
-              {project.description}
+              {project[1]?.description}
             </p>
           </div>
 
           {/* IMAGE CARD */}
           <div className="absolute rounded-xl top-0 left-0 bg-project-card w-[420px] h-[250px] z-10 overflow-hidden">
             <motion.a
-              href={project.link}
+              href={project[1] ? project[1].link : "" }
               target="_blank"
               rel="noopener noreferrer"
               className="block absolute left-15 top-12.5 w-6/7 h-4/5 cursor-pointer rounded-tl-3xl overflow-hidden"
               whileHover={{ scale: 1.05 }}
             >
               <motion.img
-                src={project.projectImage}
+                src={project[1]?.projectImage ? `data:image/jpeg;base64,${project[1].projectImage.toString("base64")}` : ""}
                 alt="project"
                 className="w-full h-full object-cover"
                 whileHover={{ scale: 1.1 }}

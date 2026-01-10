@@ -18,7 +18,7 @@ const AllProject = () => {
   ];
 
   useEffect(() => {
-    const res = axios.get(`${import.meta.env.VITE_API_URL}/projects` ,{
+    const res = axios.get(`${import.meta.env.VITE_BASE_URL}/projects` ,{
       withCredentials: true
     })
       .then(res => {
@@ -29,6 +29,8 @@ const AllProject = () => {
         console.log(err);
       });
   }, []);
+
+  console.log(import.meta.env.VITE_BASE_URL)
 
   /* -------------------- PROJECT DATA -------------------- */
   //   const projectData = [
