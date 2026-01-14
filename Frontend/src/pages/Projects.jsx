@@ -24,9 +24,13 @@ const Projects = () => {
 
   useEffect( () => {
     const fetchProjects = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/projects/favorite`)
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/projects/favorite`)
       console.log(res.data)
       setProjects(res.data.data)
+      } catch (error) {
+        console.log("error:", error)
+      }
     }
     fetchProjects()
   }, [])

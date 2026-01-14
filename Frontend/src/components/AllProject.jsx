@@ -18,16 +18,15 @@ const AllProject = () => {
   ];
 
   useEffect(() => {
-    const res = axios.get(`${import.meta.env.VITE_BASE_URL}/projects` ,{
-      withCredentials: true
-    })
-      .then(res => {
-        console.log(res.data);
-        setProjects(res.data.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/projects`);
+        setProjects(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchProduct();
   }, []);
 
   console.log(import.meta.env.VITE_BASE_URL)
