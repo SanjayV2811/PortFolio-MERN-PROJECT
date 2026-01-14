@@ -21,7 +21,7 @@ const AllProject = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/projects`);
-        setProjects(response.data);
+        setProjects(response.data.data);
       } catch (error) {
         console.log(error);
       }
