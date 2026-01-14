@@ -33,7 +33,7 @@ export default function OwnerContextProvider({ children }) {
   
 
   const logout = async () => {
-    await axios.get("http://localhost:3000/owners/logout", { withCredentials: true });
+    await axios.post(`${import.meta.env.VITE_API_URL}/owners/logout`, { withCredentials: true });
     setAccessToken(null);
     setOwner(null);
     localStorage.removeItem("token");

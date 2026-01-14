@@ -9,7 +9,7 @@ const validate = require("../middlewares/validator.middleware");
 
 router.post("/register", validate(ownerValidation), registerOwner );
 router.post("/login", validate(loginValidation), loginOwner );
-router.get("/logout", isOwnerLoggedIn, logoutOwner );
+router.post("/logout", isOwnerLoggedIn, logoutOwner );
 router.get("/getOwner", isOwnerLoggedIn, getOwner );
 
 module.exports = router;
