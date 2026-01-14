@@ -150,7 +150,7 @@ const AllProject = () => {
               className="
                 relative
                 w-full
-                h-[150px]
+                h-[190px]
                 rounded-2xl
                 p-6
                 overflow-hidden

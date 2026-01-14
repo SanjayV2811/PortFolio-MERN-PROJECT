@@ -6,6 +6,8 @@ const Workcard = ({ project, index }) => {
   // Determine slide direction: left for even index, right for odd
   const xInitial = index % 2 === 0 ? -100 : 100;
 
+ console.log(`${import.meta.env.VITE_BASE_URL}/projects/image/${project[1]?._id}`)
+
   return (
     <motion.div
       initial={{ opacity: 0, x: xInitial, y: 40 }}
@@ -50,7 +52,7 @@ const Workcard = ({ project, index }) => {
               transition={{ duration: 0.4 }}
             >
               <motion.img
-                src={project[0]?.projectImage ? `data:image/jpeg;base64,${project[0].projectImage.toString("base64")}` : ""}
+                src={`${import.meta.env.VITE_BASE_URL}/projects/image/${project[0]?._id}`}
                 alt="project"
                 className="w-full h-full object-cover"
                 whileHover={{ scale: 1.1 }}
@@ -103,7 +105,7 @@ const Workcard = ({ project, index }) => {
               whileHover={{ scale: 1.05 }}
             >
               <motion.img
-                src={project[1]?.projectImage ? `data:image/jpeg;base64,${project[1].projectImage.toString("base64")}` : ""}
+                src={`${import.meta.env.VITE_BASE_URL}/projects/image/${project[1]?._id}`}
                 alt="project"
                 className="w-full h-full object-cover"
                 whileHover={{ scale: 1.1 }}
