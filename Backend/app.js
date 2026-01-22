@@ -41,11 +41,15 @@ app.use(cookieParser());
 const userRoutes = require("./src/routes/user.routes");
 const ownerRoutes = require("./src/routes/owner.routes");
 const projectRoutes = require("./src/routes/project.routes");
+const jobRoutes = require("./src/routes/job.routes");
+
 
 
 app.use("/users",userRoutes)
 app.use("/owners",ownerRoutes)
 app.use("/projects",projectRoutes)
+app.use("/job",jobRoutes);
+
 app.get("/",(req,res) => {
   res.send("Hello World");
 });

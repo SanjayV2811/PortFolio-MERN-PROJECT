@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const comparePassword = require("../utils/comaprePass");
 const generateToken = require("../utils/generateToken");
-const User = require("../models/user.model");
+const JobUser = require("../models/jobUser.model");
 const cookie = require("cookie-parser");
 
 
@@ -19,7 +19,7 @@ const isloggedin = async (req,res,next) =>{
         }
         const decode = jwt.verify(token,"portfolio_secret");
         
-        const user = await User.findById(decode.id);
+        const user = await JobUser.findById(decode.id);
         if(!user){
             return res.status(401).json({message:"user not found"})
         }
